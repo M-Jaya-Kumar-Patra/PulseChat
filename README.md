@@ -177,9 +177,3 @@ npm run smoke:socket
 - Delivery means the server accepted and broadcast the message.
 - Read receipts are tracked by username.
 - The backend and frontend run locally during review.
-
-## Submission Notes
-
-- GitHub repository: create a new GitHub repository and push this project.
-- APK: not required because this version uses React web.
-- Screen recording: open two browser windows with different usernames and record message delivery, typing, presence, refresh history, and read receipts.
