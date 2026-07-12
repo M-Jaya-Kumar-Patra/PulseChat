@@ -1,0 +1,116 @@
+[
+  {
+    "id": "acdf3df0-7b44-412d-97a6-7037a395eafe",
+    "clientId": "smoke-rest-1",
+    "username": "Maya",
+    "text": "REST smoke test",
+    "createdAt": "2026-07-12T00:48:39.655Z",
+    "deliveredAt": "2026-07-12T00:48:39.655Z",
+    "status": "read",
+    "readBy": [
+      "Maya",
+      "M Jaya Kumar Patra",
+      "Reviewer"
+    ]
+  },
+  {
+    "id": "5a8305d3-2961-4aba-8fd0-91087c581934",
+    "clientId": "socket-smoke-1783817378915",
+    "username": "SocketAlice",
+    "text": "Socket smoke test",
+    "createdAt": "2026-07-12T00:49:38.919Z",
+    "deliveredAt": "2026-07-12T00:49:38.919Z",
+    "status": "read",
+    "readBy": [
+      "SocketAlice",
+      "M Jaya Kumar Patra",
+      "Reviewer"
+    ]
+  },
+  {
+    "id": "39597212-de69-4c63-862e-03c7b21d6ee4",
+    "clientId": "bffa2776-fcc3-4c90-8740-ad8bee38cd5c",
+    "username": "M Jaya Kumar Patra",
+    "text": "HI",
+    "createdAt": "2026-07-12T01:01:36.852Z",
+    "deliveredAt": "2026-07-12T01:01:36.852Z",
+    "status": "read",
+    "readBy": [
+      "M Jaya Kumar Patra",
+      "MAYA",
+      "Reviewer"
+    ]
+  },
+  {
+    "id": "c9b5f476-d2af-46a1-af9d-da90b739dfa8",
+    "clientId": "c861c88c-23d8-4269-9a13-9573bd54a974",
+    "username": "M Jaya Kumar Patra",
+    "text": "HI",
+    "createdAt": "2026-07-12T01:01:51.899Z",
+    "deliveredAt": "2026-07-12T01:01:51.899Z",
+    "status": "read",
+    "readBy": [
+      "M Jaya Kumar Patra",
+      "MAYA",
+      "Reviewer"
+    ]
+  },
+  {
+    "id": "17283be7-a429-413b-9b7b-68fdbd02cf1d",
+    "clientId": "dbfc62c7-af17-4b56-a343-58e0e38620c1",
+    "username": "M Jaya Kumar Patra",
+    "text": "JFDJDNFJFHFNFNSKSNDKJDFDFNMNCVCNMCVCVJKFJKFGFNJGFNMGFGFGKJDFDJFDJFDNFJJDFDFFG",
+    "createdAt": "2026-07-12T01:02:07.642Z",
+    "deliveredAt": "2026-07-12T01:02:07.642Z",
+    "status": "read",
+    "readBy": [
+      "M Jaya Kumar Patra",
+      "MAYA",
+      "Reviewer"
+    ]
+  },
+  {
+    "id": "7dbb0d0b-d126-4cb4-b98c-f9528e13a0f3",
+    "clientId": "34801832-6512-4c0c-9b4e-12fd76189d0b",
+    "username": "Reviewer",
+    "text": "UI smoke test from Reviewer",
+    "createdAt": "2026-07-12T01:02:18.810Z",
+    "deliveredAt": "2026-07-12T01:02:18.810Z",
+    "status": "read",
+    "readBy": [
+      "Reviewer",
+      "MAYA",
+      "M Jaya Kumar Patra"
+    ]
+  },
+  {
+    "id": "633d862d-5f83-4a66-88e7-d6dbb063cbfa",
+    "clientId": "socket-smoke-1783818179690",
+    "username": "SocketAlice",
+    "text": "Socket smoke test",
+    "createdAt": "2026-07-12T01:02:59.691Z",
+    "deliveredAt": "2026-07-12T01:02:59.691Z",
+    "status": "read",
+    "readBy": [
+      "SocketAlice",
+      "MAYA",
+      "M Jaya Kumar Patra",
+      "Reviewer"
+    ]
+  },
+  {
+    "id": "231c9d9f-dca3-4430-8bbd-7d0d4807e713",
+    "clientId": "socket-smoke-1783818265141",
+    "username": "SocketAlice",
+    "text": "Socket smoke test",
+    "createdAt": "2026-07-12T01:04:25.142Z",
+    "deliveredAt": "2026-07-12T01:04:25.142Z",
+    "status": "read",
+    "readBy": [
+      "SocketAlice",
+      "Reviewer",
+      "M Jaya Kumar Patra",
+      "MAYA"
+    ]
+  }
+]
