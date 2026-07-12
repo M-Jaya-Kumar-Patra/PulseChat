@@ -1,86 +1,56 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
+const withoutMongoId = ({ _id, ...message }) => message;
 
-export const createMessageRepository = (filePath) => {
-  let writeQueue = Promise.resolve();
+const normalizeLimit = (limit) => {
+  const parsedLimit = Number(limit);
+  return Number.isFinite(parsedLimit) && parsedLimit > 0 ? parsedLimit : 100;
+};
 
-  const ensureStore = async () => {
-    await fs.mkdir(path.dirname(filePath), { recursive: true });
-
-    try {
-      await fs.access(filePath);
-    } catch {
-      await fs.writeFile(filePath, '[]', 'utf8');
-    }
-  };
-
-  const readAll = async () => {
-    await ensureStore();
-    const raw = await fs.readFile(filePath, 'utf8');
-
-    try {
-      const messages = JSON.parse(raw);
-      return Array.isArray(messages) ? messages : [];
-    } catch {
-      return [];
-    }
-  };
-
-  const writeAll = async (messages) => {
-    await ensureStore();
-    const tmpPath = `${filePath}.tmp`;
-    await fs.writeFile(tmpPath, JSON.stringify(messages, null, 2), 'utf8');
-    await fs.rename(tmpPath, filePath);
-  };
-
-  const queueWrite = (operation) => {
-    writeQueue = writeQueue.then(operation, operation);
-    return writeQueue;
-  };
-
+export const createMessageRepository = (messagesCollection) => {
   return {
-    async list({ limit = 100 } = {}) {
-      const messages = await readAll();
-      const normalizedLimit = Number.isFinite(limit) && limit > 0 ? limit : 100;
+    async init() {
+      await Promise.all([
+        messagesCollection.createIndex({ createdAt: 1 }),
+        messagesCollection.createIndex({ id: 1 }, { unique: true })
+      ]);
+    },
 
-      return messages
-        .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-        .slice(-normalizedLimit);
+    async list({ limit = 100 } = {}) {
+      const normalizedLimit = normalizeLimit(limit);
+      const messages = await messagesCollection
+        .find({}, { projection: { _id: 0 } })
+        .sort({ createdAt: -1 })
+        .limit(normalizedLimit)
+        .toArray();
+
+      return messages.reverse();
     },
 
     async add(message) {
-      return queueWrite(async () => {
-        const messages = await readAll();
-        const nextMessages = [...messages, message];
-        await writeAll(nextMessages);
-        return message;
-      });
+      await messagesCollection.insertOne(message);
+      return message;
     },
 
     async markRead({ messageId, username }) {
-      return queueWrite(async () => {
-        const messages = await readAll();
-        const index = messages.findIndex((message) => message.id === messageId);
-
-        if (index === -1) {
-          return null;
+      const result = await messagesCollection.findOneAndUpdate(
+        { id: messageId },
+        {
+          $addToSet: { readBy: username },
+          $set: { status: 'read' }
+        },
+        {
+          returnDocument: 'after',
+          projection: { _id: 0 },
+          includeResultMetadata: false
         }
+      );
 
-        const current = messages[index];
-        const readBy = new Set(current.readBy || []);
-        readBy.add(username);
+      const updatedMessage = result?.value === undefined ? result : result.value;
 
-        const updated = {
-          ...current,
-          readBy: Array.from(readBy),
-          status: 'read'
-        };
+      if (!updatedMessage) {
+        return null;
+      }
 
-        messages[index] = updated;
-        await writeAll(messages);
-
-        return updated;
-      });
+      return withoutMongoId(updatedMessage);
     }
   };
 };
